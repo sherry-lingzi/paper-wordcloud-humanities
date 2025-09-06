@@ -1,0 +1,496 @@
+{
+  "total_words": 100,
+  "total_frequency": 3966,
+  "top_words": [
+    {
+      "word": "non-hermitian",
+      "frequency": 380
+    },
+    {
+      "word": "quantum",
+      "frequency": 180
+    },
+    {
+      "word": "critical",
+      "frequency": 132
+    },
+    {
+      "word": "hamiltonian",
+      "frequency": 132
+    },
+    {
+      "word": "phase",
+      "frequency": 117
+    },
+    {
+      "word": "dirac",
+      "frequency": 102
+    },
+    {
+      "word": "afm",
+      "frequency": 102
+    },
+    {
+      "word": "simulation",
+      "frequency": 82
+    },
+    {
+      "word": "transition",
+      "frequency": 80
+    },
+    {
+      "word": "numerical",
+      "frequency": 72
+    },
+    {
+      "word": "spin",
+      "frequency": 70
+    },
+    {
+      "word": "universality",
+      "frequency": 70
+    },
+    {
+      "word": "symmetry",
+      "frequency": 68
+    },
+    {
+      "word": "hopping",
+      "frequency": 68
+    },
+    {
+      "word": "hubbard",
+      "frequency": 66
+    },
+    {
+      "word": "result",
+      "frequency": 66
+    },
+    {
+      "word": "interaction",
+      "frequency": 63
+    },
+    {
+      "word": "projector",
+      "frequency": 60
+    },
+    {
+      "word": "algorithm",
+      "frequency": 58
+    },
+    {
+      "word": "qmc",
+      "frequency": 57
+    },
+    {
+      "word": "point",
+      "frequency": 57
+    },
+    {
+      "word": "label",
+      "frequency": 54
+    },
+    {
+      "word": "lattice",
+      "frequency": 48
+    },
+    {
+      "word": "asymmetric",
+      "frequency": 48
+    },
+    {
+      "word": "many-body",
+      "frequency": 46
+    },
+    {
+      "word": "system",
+      "frequency": 44
+    },
+    {
+      "word": "ordering",
+      "frequency": 41
+    },
+    {
+      "word": "hermitian",
+      "frequency": 41
+    },
+    {
+      "word": "class",
+      "frequency": 39
+    },
+    {
+      "word": "term",
+      "frequency": 38
+    },
+    {
+      "word": "structure",
+      "frequency": 38
+    },
+    {
+      "word": "factor",
+      "frequency": 38
+    },
+    {
+      "word": "ground-state",
+      "frequency": 37
+    },
+    {
+      "word": "fermi",
+      "frequency": 36
+    },
+    {
+      "word": "interacting",
+      "frequency": 36
+    },
+    {
+      "word": "order",
+      "frequency": 36
+    },
+    {
+      "word": "presence",
+      "frequency": 35
+    },
+    {
+      "word": "property",
+      "frequency": 35
+    },
+    {
+      "word": "eigenvalue",
+      "frequency": 32
+    },
+    {
+      "word": "dsm",
+      "frequency": 32
+    },
+    {
+      "word": "physic",
+      "frequency": 30
+    },
+    {
+      "word": "fig",
+      "frequency": 30
+    },
+    {
+      "word": "parameter",
+      "frequency": 30
+    },
+    {
+      "word": "scaling",
+      "frequency": 28
+    },
+    {
+      "word": "exponent",
+      "frequency": 28
+    },
+    {
+      "word": "function",
+      "frequency": 28
+    },
+    {
+      "word": "given",
+      "frequency": 28
+    },
+    {
+      "word": "correlation",
+      "frequency": 26
+    },
+    {
+      "word": "non-hermiticity",
+      "frequency": 26
+    },
+    {
+      "word": "low-energy",
+      "frequency": 26
+    },
+    {
+      "word": "size",
+      "frequency": 26
+    },
+    {
+      "word": "renormalization",
+      "frequency": 24
+    },
+    {
+      "word": "effective",
+      "frequency": 24
+    },
+    {
+      "word": "value",
+      "frequency": 24
+    },
+    {
+      "word": "model",
+      "frequency": 23
+    },
+    {
+      "word": "fermions",
+      "frequency": 22
+    },
+    {
+      "word": "field",
+      "frequency": 22
+    },
+    {
+      "word": "velocity",
+      "frequency": 22
+    },
+    {
+      "word": "investigate",
+      "frequency": 21
+    },
+    {
+      "word": "diagram",
+      "frequency": 21
+    },
+    {
+      "word": "matrix",
+      "frequency": 20
+    },
+    {
+      "word": "transformation",
+      "frequency": 20
+    },
+    {
+      "word": "honeycomb",
+      "frequency": 19
+    },
+    {
+      "word": "enhanced",
+      "frequency": 19
+    },
+    {
+      "word": "fermionic",
+      "frequency": 18
+    },
+    {
+      "word": "belongs",
+      "frequency": 18
+    },
+    {
+      "word": "present",
+      "frequency": 18
+    },
+    {
+      "word": "fermion",
+      "frequency": 18
+    },
+    {
+      "word": "introduced",
+      "frequency": 18
+    },
+    {
+      "word": "perform",
+      "frequency": 18
+    },
+    {
+      "word": "plane",
+      "frequency": 18
+    },
+    {
+      "word": "state",
+      "frequency": 18
+    },
+    {
+      "word": "one-loop",
+      "frequency": 18
+    },
+    {
+      "word": "respectively",
+      "frequency": 16
+    },
+    {
+      "word": "procedure",
+      "frequency": 16
+    },
+    {
+      "word": "linear",
+      "frequency": 16
+    },
+    {
+      "word": "ratio",
+      "frequency": 16
+    },
+    {
+      "word": "qcp",
+      "frequency": 16
+    },
+    {
+      "word": "operator",
+      "frequency": 16
+    },
+    {
+      "word": "strong",
+      "frequency": 15
+    },
+    {
+      "word": "hence",
+      "frequency": 15
+    },
+    {
+      "word": "antiferromagnetic",
+      "frequency": 14
+    },
+    {
+      "word": "strongly",
+      "frequency": 14
+    },
+    {
+      "word": "chiral-xy",
+      "frequency": 14
+    },
+    {
+      "word": "shown",
+      "frequency": 14
+    },
+    {
+      "word": "energy",
+      "frequency": 14
+    },
+    {
+      "word": "chiral",
+      "frequency": 14
+    },
+    {
+      "word": "different",
+      "frequency": 14
+    },
+    {
+      "word": "ground",
+      "frequency": 14
+    },
+    {
+      "word": "correlation-length",
+      "frequency": 14
+    },
+    {
+      "word": "dimension",
+      "frequency": 14
+    },
+    {
+      "word": "collapse",
+      "frequency": 14
+    },
+    {
+      "word": "coupling",
+      "frequency": 13
+    },
+    {
+      "word": "ordered",
+      "frequency": 13
+    },
+    {
+      "word": "consistent",
+      "frequency": 13
+    },
+    {
+      "word": "hermiticity",
+      "frequency": 13
+    },
+    {
+      "word": "emergent",
+      "frequency": 13
+    },
+    {
+      "word": "density",
+      "frequency": 12
+    },
+    {
+      "word": "reveal",
+      "frequency": 12
+    },
+    {
+      "word": "wang",
+      "frequency": 12
+    }
+  ],
+  "scientific_terms": [
+    {
+      "word": "non-hermitian",
+      "frequency": 380
+    },
+    {
+      "word": "quantum",
+      "frequency": 180
+    },
+    {
+      "word": "critical",
+      "frequency": 132
+    },
+    {
+      "word": "hamiltonian",
+      "frequency": 132
+    },
+    {
+      "word": "dirac",
+      "frequency": 102
+    },
+    {
+      "word": "simulation",
+      "frequency": 82
+    },
+    {
+      "word": "numerical",
+      "frequency": 72
+    },
+    {
+      "word": "spin",
+      "frequency": 70
+    },
+    {
+      "word": "universality",
+      "frequency": 70
+    },
+    {
+      "word": "symmetry",
+      "frequency": 68
+    },
+    {
+      "word": "projector",
+      "frequency": 60
+    },
+    {
+      "word": "algorithm",
+      "frequency": 58
+    },
+    {
+      "word": "lattice",
+      "frequency": 48
+    },
+    {
+      "word": "many-body",
+      "frequency": 46
+    },
+    {
+      "word": "fermi",
+      "frequency": 36
+    },
+    {
+      "word": "eigenvalue",
+      "frequency": 32
+    },
+    {
+      "word": "scaling",
+      "frequency": 28
+    },
+    {
+      "word": "correlation",
+      "frequency": 26
+    },
+    {
+      "word": "renormalization",
+      "frequency": 24
+    },
+    {
+      "word": "fermions",
+      "frequency": 22
+    },
+    {
+      "word": "antiferromagnetic",
+      "frequency": 14
+    },
+    {
+      "word": "density",
+      "frequency": 12
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "total_words": 2,
+  "total_frequency": 6,
+  "top_words": [
+    {
+      "word": "content",
+      "frequency": 3
+    },
+    {
+      "word": "available",
+      "frequency": 3
+    }
+  ],
+  "scientific_terms": []
+}

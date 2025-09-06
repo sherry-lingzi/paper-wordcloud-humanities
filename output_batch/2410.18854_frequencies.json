@@ -1,0 +1,476 @@
+{
+  "total_words": 100,
+  "total_frequency": 3987,
+  "top_words": [
+    {
+      "word": "critical",
+      "frequency": 234
+    },
+    {
+      "word": "quantum",
+      "frequency": 148
+    },
+    {
+      "word": "sign",
+      "frequency": 147
+    },
+    {
+      "word": "state",
+      "frequency": 116
+    },
+    {
+      "word": "dirac",
+      "frequency": 106
+    },
+    {
+      "word": "scaling",
+      "frequency": 98
+    },
+    {
+      "word": "problem",
+      "frequency": 91
+    },
+    {
+      "word": "phase",
+      "frequency": 80
+    },
+    {
+      "word": "fig",
+      "frequency": 78
+    },
+    {
+      "word": "afm",
+      "frequency": 74
+    },
+    {
+      "word": "correlation",
+      "frequency": 72
+    },
+    {
+      "word": "qcp",
+      "frequency": 68
+    },
+    {
+      "word": "simulation",
+      "frequency": 66
+    },
+    {
+      "word": "point",
+      "frequency": 63
+    },
+    {
+      "word": "qmc",
+      "frequency": 62
+    },
+    {
+      "word": "result",
+      "frequency": 62
+    },
+    {
+      "word": "symmetry",
+      "frequency": 60
+    },
+    {
+      "word": "initial",
+      "frequency": 60
+    },
+    {
+      "word": "order",
+      "frequency": 58
+    },
+    {
+      "word": "dynamic",
+      "frequency": 57
+    },
+    {
+      "word": "numerical",
+      "frequency": 54
+    },
+    {
+      "word": "fermions",
+      "frequency": 54
+    },
+    {
+      "word": "universality",
+      "frequency": 54
+    },
+    {
+      "word": "short-time",
+      "frequency": 53
+    },
+    {
+      "word": "property",
+      "frequency": 52
+    },
+    {
+      "word": "shown",
+      "frequency": 50
+    },
+    {
+      "word": "hubbard",
+      "frequency": 49
+    },
+    {
+      "word": "time",
+      "frequency": 47
+    },
+    {
+      "word": "ground",
+      "frequency": 44
+    },
+    {
+      "word": "different",
+      "frequency": 43
+    },
+    {
+      "word": "lattice",
+      "frequency": 40
+    },
+    {
+      "word": "relaxation",
+      "frequency": 39
+    },
+    {
+      "word": "theoretical",
+      "frequency": 36
+    },
+    {
+      "word": "computational",
+      "frequency": 36
+    },
+    {
+      "word": "interaction",
+      "frequency": 36
+    },
+    {
+      "word": "fermion",
+      "frequency": 35
+    },
+    {
+      "word": "main",
+      "frequency": 35
+    },
+    {
+      "word": "many-body",
+      "frequency": 34
+    },
+    {
+      "word": "dsm",
+      "frequency": 34
+    },
+    {
+      "word": "hamiltonian",
+      "frequency": 32
+    },
+    {
+      "word": "defined",
+      "frequency": 32
+    },
+    {
+      "word": "text",
+      "frequency": 32
+    },
+    {
+      "word": "nonequilibrium",
+      "frequency": 31
+    },
+    {
+      "word": "imaginary-time",
+      "frequency": 31
+    },
+    {
+      "word": "exponent",
+      "frequency": 31
+    },
+    {
+      "word": "ratio",
+      "frequency": 30
+    },
+    {
+      "word": "transition",
+      "frequency": 29
+    },
+    {
+      "word": "density",
+      "frequency": 28
+    },
+    {
+      "word": "transformation",
+      "frequency": 28
+    },
+    {
+      "word": "model",
+      "frequency": 27
+    },
+    {
+      "word": "evolution",
+      "frequency": 26
+    },
+    {
+      "word": "previous",
+      "frequency": 26
+    },
+    {
+      "word": "value",
+      "frequency": 26
+    },
+    {
+      "word": "ordered",
+      "frequency": 26
+    },
+    {
+      "word": "average",
+      "frequency": 26
+    },
+    {
+      "word": "one",
+      "frequency": 25
+    },
+    {
+      "word": "two",
+      "frequency": 25
+    },
+    {
+      "word": "fermionic",
+      "frequency": 24
+    },
+    {
+      "word": "structure",
+      "frequency": 24
+    },
+    {
+      "word": "energy",
+      "frequency": 24
+    },
+    {
+      "word": "also",
+      "frequency": 24
+    },
+    {
+      "word": "ground-state",
+      "frequency": 24
+    },
+    {
+      "word": "length",
+      "frequency": 24
+    },
+    {
+      "word": "parameter",
+      "frequency": 24
+    },
+    {
+      "word": "mean-field",
+      "frequency": 24
+    },
+    {
+      "word": "class",
+      "frequency": 23
+    },
+    {
+      "word": "show",
+      "frequency": 22
+    },
+    {
+      "word": "size",
+      "frequency": 22
+    },
+    {
+      "word": "consistent",
+      "frequency": 22
+    },
+    {
+      "word": "physic",
+      "frequency": 21
+    },
+    {
+      "word": "equilibrium",
+      "frequency": 21
+    },
+    {
+      "word": "demonstrate",
+      "frequency": 21
+    },
+    {
+      "word": "interacting",
+      "frequency": 21
+    },
+    {
+      "word": "first",
+      "frequency": 21
+    },
+    {
+      "word": "function",
+      "frequency": 20
+    },
+    {
+      "word": "following",
+      "frequency": 20
+    },
+    {
+      "word": "channel",
+      "frequency": 20
+    },
+    {
+      "word": "flavor",
+      "frequency": 20
+    },
+    {
+      "word": "criticality",
+      "frequency": 19
+    },
+    {
+      "word": "system",
+      "frequency": 19
+    },
+    {
+      "word": "obtained",
+      "frequency": 19
+    },
+    {
+      "word": "find",
+      "frequency": 19
+    },
+    {
+      "word": "antiferromagnetic",
+      "frequency": 18
+    },
+    {
+      "word": "exotic",
+      "frequency": 18
+    },
+    {
+      "word": "form",
+      "frequency": 18
+    },
+    {
+      "word": "versus",
+      "frequency": 18
+    },
+    {
+      "word": "collapse",
+      "frequency": 18
+    },
+    {
+      "word": "group",
+      "frequency": 18
+    },
+    {
+      "word": "cdw",
+      "frequency": 18
+    },
+    {
+      "word": "factor",
+      "frequency": 18
+    },
+    {
+      "word": "flux",
+      "frequency": 18
+    },
+    {
+      "word": "generator",
+      "frequency": 18
+    },
+    {
+      "word": "stage",
+      "frequency": 17
+    },
+    {
+      "word": "work",
+      "frequency": 16
+    },
+    {
+      "word": "compared",
+      "frequency": 16
+    },
+    {
+      "word": "presence",
+      "frequency": 16
+    },
+    {
+      "word": "determine",
+      "frequency": 16
+    },
+    {
+      "word": "dimension",
+      "frequency": 16
+    },
+    {
+      "word": "determined",
+      "frequency": 16
+    },
+    {
+      "word": "via",
+      "frequency": 16
+    }
+  ],
+  "scientific_terms": [
+    {
+      "word": "critical",
+      "frequency": 234
+    },
+    {
+      "word": "quantum",
+      "frequency": 148
+    },
+    {
+      "word": "dirac",
+      "frequency": 106
+    },
+    {
+      "word": "scaling",
+      "frequency": 98
+    },
+    {
+      "word": "correlation",
+      "frequency": 72
+    },
+    {
+      "word": "simulation",
+      "frequency": 66
+    },
+    {
+      "word": "symmetry",
+      "frequency": 60
+    },
+    {
+      "word": "numerical",
+      "frequency": 54
+    },
+    {
+      "word": "fermions",
+      "frequency": 54
+    },
+    {
+      "word": "universality",
+      "frequency": 54
+    },
+    {
+      "word": "lattice",
+      "frequency": 40
+    },
+    {
+      "word": "theoretical",
+      "frequency": 36
+    },
+    {
+      "word": "computational",
+      "frequency": 36
+    },
+    {
+      "word": "many-body",
+      "frequency": 34
+    },
+    {
+      "word": "hamiltonian",
+      "frequency": 32
+    },
+    {
+      "word": "density",
+      "frequency": 28
+    },
+    {
+      "word": "antiferromagnetic",
+      "frequency": 18
+    }
+  ]
+}

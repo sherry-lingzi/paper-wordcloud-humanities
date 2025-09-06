@@ -1,0 +1,70 @@
+{
+  "correction_info": {
+    "description": "词汇放置在黑色区域（非人物剪影），人物轮廓保持空白",
+    "color_scheme": "纯白色字体",
+    "background": "黑色背景"
+  },
+  "mask_info": {
+    "image_size": "1080x1080",
+    "total_pixels": 1166400,
+    "available_pixels_black_area": 937784,
+    "black_area_coverage": "80.4%",
+    "silhouette_area_coverage": "19.6%"
+  },
+  "wordcloud_stats": {
+    "resolution": "600 DPI",
+    "total_input_words": 201,
+    "placed_words": 201,
+    "placement_rate": "100.0%",
+    "word_frequency_stats": {
+      "min_frequency": 0.025918775918775915,
+      "max_frequency": 1.0,
+      "avg_frequency": 0.1302105232453491
+    }
+  },
+  "top_10_placed_words": [
+    {
+      "word": "QMC",
+      "frequency": 1.0
+    },
+    {
+      "word": "STRONGLY CORRELATED SYSTEMS",
+      "frequency": 0.9909909909909911
+    },
+    {
+      "word": "QUANTUM",
+      "frequency": 0.9009009009009008
+    },
+    {
+      "word": "INVOKE",
+      "frequency": 0.865150865150865
+    },
+    {
+      "word": "STATE",
+      "frequency": 0.6006006006006005
+    },
+    {
+      "word": "LATTICE",
+      "frequency": 0.5577005577005576
+    },
+    {
+      "word": "SIMULATION",
+      "frequency": 0.5451880451880451
+    },
+    {
+      "word": "PHASE",
+      "frequency": 0.5389317889317888
+    },
+    {
+      "word": "CRITICAL",
+      "frequency": 0.5273130273130273
+    },
+    {
+      "word": "ORDER",
+      "frequency": 0.44240669240669234
+    }
+  ],
+  "generated_files": {
+    "main_wordcloud": "yyk_silhouette.png"
+  }
+}

@@ -1,0 +1,488 @@
+{
+  "total_words": 100,
+  "total_frequency": 2800,
+  "top_words": [
+    {
+      "word": "lattice",
+      "frequency": 246
+    },
+    {
+      "word": "penrose",
+      "frequency": 170
+    },
+    {
+      "word": "coupling",
+      "frequency": 105
+    },
+    {
+      "word": "e-ph",
+      "frequency": 94
+    },
+    {
+      "word": "order",
+      "frequency": 79
+    },
+    {
+      "word": "state",
+      "frequency": 76
+    },
+    {
+      "word": "cdw",
+      "frequency": 70
+    },
+    {
+      "word": "holstein",
+      "frequency": 64
+    },
+    {
+      "word": "result",
+      "frequency": 64
+    },
+    {
+      "word": "regime",
+      "frequency": 53
+    },
+    {
+      "word": "fig",
+      "frequency": 48
+    },
+    {
+      "word": "confined",
+      "frequency": 47
+    },
+    {
+      "word": "simulation",
+      "frequency": 46
+    },
+    {
+      "word": "quantum",
+      "frequency": 44
+    },
+    {
+      "word": "phonon",
+      "frequency": 44
+    },
+    {
+      "word": "temperature",
+      "frequency": 43
+    },
+    {
+      "word": "phase",
+      "frequency": 42
+    },
+    {
+      "word": "strong",
+      "frequency": 41
+    },
+    {
+      "word": "pairing",
+      "frequency": 39
+    },
+    {
+      "word": "interaction",
+      "frequency": 35
+    },
+    {
+      "word": "fluctuation",
+      "frequency": 34
+    },
+    {
+      "word": "strength",
+      "frequency": 33
+    },
+    {
+      "word": "forbidden",
+      "frequency": 29
+    },
+    {
+      "word": "symmetry",
+      "frequency": 28
+    },
+    {
+      "word": "ladder",
+      "frequency": 27
+    },
+    {
+      "word": "structure",
+      "frequency": 26
+    },
+    {
+      "word": "present",
+      "frequency": 26
+    },
+    {
+      "word": "property",
+      "frequency": 25
+    },
+    {
+      "word": "superconductivity",
+      "frequency": 24
+    },
+    {
+      "word": "density",
+      "frequency": 24
+    },
+    {
+      "word": "number",
+      "frequency": 24
+    },
+    {
+      "word": "susceptibility",
+      "frequency": 24
+    },
+    {
+      "word": "dominant",
+      "frequency": 23
+    },
+    {
+      "word": "large",
+      "frequency": 23
+    },
+    {
+      "word": "energy",
+      "frequency": 23
+    },
+    {
+      "word": "crystal",
+      "frequency": 22
+    },
+    {
+      "word": "frequency",
+      "frequency": 22
+    },
+    {
+      "word": "dqmc",
+      "frequency": 22
+    },
+    {
+      "word": "ordering",
+      "frequency": 21
+    },
+    {
+      "word": "effect",
+      "frequency": 21
+    },
+    {
+      "word": "half",
+      "frequency": 20
+    },
+    {
+      "word": "filling",
+      "frequency": 20
+    },
+    {
+      "word": "long-range",
+      "frequency": 20
+    },
+    {
+      "word": "superconducting",
+      "frequency": 20
+    },
+    {
+      "word": "finite",
+      "frequency": 20
+    },
+    {
+      "word": "site",
+      "frequency": 20
+    },
+    {
+      "word": "coherence",
+      "frequency": 19
+    },
+    {
+      "word": "fermi",
+      "frequency": 18
+    },
+    {
+      "word": "one",
+      "frequency": 18
+    },
+    {
+      "word": "respectively",
+      "frequency": 18
+    },
+    {
+      "word": "parameter",
+      "frequency": 17
+    },
+    {
+      "word": "theoretical",
+      "frequency": 16
+    },
+    {
+      "word": "electronic",
+      "frequency": 16
+    },
+    {
+      "word": "ground",
+      "frequency": 16
+    },
+    {
+      "word": "shown",
+      "frequency": 16
+    },
+    {
+      "word": "also",
+      "frequency": 16
+    },
+    {
+      "word": "different",
+      "frequency": 16
+    },
+    {
+      "word": "gap",
+      "frequency": 16
+    },
+    {
+      "word": "do",
+      "frequency": 16
+    },
+    {
+      "word": "feature",
+      "frequency": 15
+    },
+    {
+      "word": "diagram",
+      "frequency": 15
+    },
+    {
+      "word": "bipartite",
+      "frequency": 15
+    },
+    {
+      "word": "periodic",
+      "frequency": 15
+    },
+    {
+      "word": "determinant",
+      "frequency": 14
+    },
+    {
+      "word": "instability",
+      "frequency": 14
+    },
+    {
+      "word": "suppressed",
+      "frequency": 14
+    },
+    {
+      "word": "two",
+      "frequency": 14
+    },
+    {
+      "word": "function",
+      "frequency": 14
+    },
+    {
+      "word": "cluster",
+      "frequency": 14
+    },
+    {
+      "word": "size",
+      "frequency": 14
+    },
+    {
+      "word": "increase",
+      "frequency": 14
+    },
+    {
+      "word": "increasing",
+      "frequency": 14
+    },
+    {
+      "word": "ldos",
+      "frequency": 14
+    },
+    {
+      "word": "spectral",
+      "frequency": 14
+    },
+    {
+      "word": "namely",
+      "frequency": 13
+    },
+    {
+      "word": "intermediate",
+      "frequency": 13
+    },
+    {
+      "word": "moreover",
+      "frequency": 13
+    },
+    {
+      "word": "electron",
+      "frequency": 12
+    },
+    {
+      "word": "spin",
+      "frequency": 12
+    },
+    {
+      "word": "algorithm",
+      "frequency": 12
+    },
+    {
+      "word": "dirac",
+      "frequency": 12
+    },
+    {
+      "word": "presence",
+      "frequency": 12
+    },
+    {
+      "word": "type",
+      "frequency": 12
+    },
+    {
+      "word": "region",
+      "frequency": 12
+    },
+    {
+      "word": "zero",
+      "frequency": 12
+    },
+    {
+      "word": "divergent",
+      "frequency": 12
+    },
+    {
+      "word": "enhanced",
+      "frequency": 12
+    },
+    {
+      "word": "local",
+      "frequency": 12
+    },
+    {
+      "word": "green",
+      "frequency": 12
+    },
+    {
+      "word": "value",
+      "frequency": 12
+    },
+    {
+      "word": "imaginary-time",
+      "frequency": 12
+    },
+    {
+      "word": "quasicrystal",
+      "frequency": 10
+    },
+    {
+      "word": "numerical",
+      "frequency": 10
+    },
+    {
+      "word": "charge-density-wave",
+      "frequency": 10
+    },
+    {
+      "word": "unbiased",
+      "frequency": 10
+    },
+    {
+      "word": "system",
+      "frequency": 10
+    },
+    {
+      "word": "behavior",
+      "frequency": 10
+    },
+    {
+      "word": "particularly",
+      "frequency": 10
+    },
+    {
+      "word": "single-particle",
+      "frequency": 10
+    },
+    {
+      "word": "detail",
+      "frequency": 10
+    }
+  ],
+  "scientific_terms": [
+    {
+      "word": "lattice",
+      "frequency": 246
+    },
+    {
+      "word": "penrose",
+      "frequency": 170
+    },
+    {
+      "word": "holstein",
+      "frequency": 64
+    },
+    {
+      "word": "simulation",
+      "frequency": 46
+    },
+    {
+      "word": "quantum",
+      "frequency": 44
+    },
+    {
+      "word": "phonon",
+      "frequency": 44
+    },
+    {
+      "word": "fluctuation",
+      "frequency": 34
+    },
+    {
+      "word": "symmetry",
+      "frequency": 28
+    },
+    {
+      "word": "superconductivity",
+      "frequency": 24
+    },
+    {
+      "word": "density",
+      "frequency": 24
+    },
+    {
+      "word": "crystal",
+      "frequency": 22
+    },
+    {
+      "word": "fermi",
+      "frequency": 18
+    },
+    {
+      "word": "theoretical",
+      "frequency": 16
+    },
+    {
+      "word": "determinant",
+      "frequency": 14
+    },
+    {
+      "word": "electron",
+      "frequency": 12
+    },
+    {
+      "word": "spin",
+      "frequency": 12
+    },
+    {
+      "word": "algorithm",
+      "frequency": 12
+    },
+    {
+      "word": "dirac",
+      "frequency": 12
+    },
+    {
+      "word": "quasicrystal",
+      "frequency": 10
+    },
+    {
+      "word": "numerical",
+      "frequency": 10
+    }
+  ]
+}
