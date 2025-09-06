@@ -23,14 +23,14 @@ def wordcloud_parameters_demo():
     print("🎨 词云参数详解和演示...")
     
     # 加载词频数据
-    freq_file = "output_batch/combined_all_papers_frequencies.json"
+    freq_file = "output/combined_all_papers_frequencies.json"
     with open(freq_file, 'r', encoding='utf-8') as f:
         freq_data = json.load(f)
     
     top_words = freq_data.get('top_words', [])[:100]
     word_frequencies = {item['word']: item['frequency'] for item in top_words}
     
-    output_dir = "output_batch/parameter_demos"
+    output_dir = "output/parameter_demos"
     os.makedirs(output_dir, exist_ok=True)
     
     print("📋 WordCloud主要参数类别：")

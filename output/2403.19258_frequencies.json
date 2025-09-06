@@ -1,0 +1,72 @@
+{
+  "total_words": 12,
+  "total_frequency": 48,
+  "top_words": [
+    {
+      "word": "scaling",
+      "frequency": 6
+    },
+    {
+      "word": "kibble-zurek",
+      "frequency": 6
+    },
+    {
+      "word": "critical",
+      "frequency": 6
+    },
+    {
+      "word": "dirac",
+      "frequency": 6
+    },
+    {
+      "word": "finite-time",
+      "frequency": 3
+    },
+    {
+      "word": "beyond",
+      "frequency": 3
+    },
+    {
+      "word": "prerequisite",
+      "frequency": 3
+    },
+    {
+      "word": "driven",
+      "frequency": 3
+    },
+    {
+      "word": "dynamic",
+      "frequency": 3
+    },
+    {
+      "word": "strongly",
+      "frequency": 3
+    },
+    {
+      "word": "interacting",
+      "frequency": 3
+    },
+    {
+      "word": "system",
+      "frequency": 3
+    }
+  ],
+  "scientific_terms": [
+    {
+      "word": "scaling",
+      "frequency": 6
+    },
+    {
+      "word": "kibble-zurek",
+      "frequency": 6
+    },
+    {
+      "word": "critical",
+      "frequency": 6
+    },
+    {
+      "word": "dirac",
+      "frequency": 6
+    }
+  ]
+}

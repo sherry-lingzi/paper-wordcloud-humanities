@@ -26,7 +26,7 @@ def create_combined_wordcloud():
     paper_weights = {}
     successful_papers = []
     
-    output_dir = "output_batch"
+    output_dir = "output"
     
     for paper_info in PAPERS_CONFIG:
         arxiv_id = paper_info['arxiv_id']

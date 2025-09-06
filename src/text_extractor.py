@@ -91,6 +91,38 @@ class TextExtractor:
         for element in soup(['script', 'style', 'nav', 'header', 'footer']):
             element.decompose()
         
+        # 移除PGF/TikZ渲染代码（LaTeX图形引擎产生的噪音）
+        for element in soup.find_all(['g', 'defs', 'path', 'rect', 'circle']):
+            element.decompose()
+        
+        # 移除所有包含LaTeX/PGF/HTML属性的元素
+        # 1. 移除包含PGF命令的文本节点
+        pgf_patterns = [
+            'pgfsys', 'beginscope', 'endscope', 'closescope', 'invoke', 
+            'definecolor', 'pgfpicture', 'makeatletter', 'hbox', 'vbox',
+            'tikz@color', 'pgfstroke', 'pgffill', 'setlinewidth', 'moveto', 'lineto',
+            'curveto', 'nullfont', 'rgb{', 'class=', 'id=', 'xref='
+        ]
+        
+        # 删除包含这些模式的整个父元素
+        for pattern in pgf_patterns:
+            for element in soup.find_all(text=lambda t: t and pattern in t.lower()):
+                if element.parent:
+                    element.parent.decompose()
+        
+        # 2. 移除所有HTML属性（彻底清除class、id等）
+        for tag in soup.find_all(True):
+            tag.attrs = {}
+        
+        # 3. 移除包含大量数字和符号的元素（可能是渲染代码）
+        for element in soup.find_all(text=True):
+            if element.strip():
+                # 如果文本中符号+数字占比超过70%，删除
+                text = element.strip()
+                symbol_digit_count = sum(1 for c in text if not c.isalpha() and not c.isspace())
+                if len(text) > 10 and symbol_digit_count / len(text) > 0.7:
+                    element.extract()
+        
         # 移除导航和菜单元素
         for element in soup.find_all(['div'], class_=['ltx_navigation', 'ltx_page_navbar', 'ltx_page_footer']):
             element.decompose()
@@ -276,6 +308,18 @@ class TextExtractor:
         # 移除LaTeX命令残留
         text = re.sub(r'\\[a-zA-Z]+\*?', '', text)
         text = re.sub(r'\{[^}]*\}', '', text)
+        
+        # 移除PGF/TikZ残留命令和函数调用
+        pgf_cleanup_patterns = [
+            r'\b(pgfsys|beginscope|endscope|closescope|invoke|definecolor|pgfpicture|makeatletter|tikz)\w*\b',
+            r'\b(hbox|vbox|moveto|lineto|stroke|fill|setlinewidth)\w*\b',
+            r'\{\d+\.\d+pt\}',  # 长度单位
+            r'rgb\{\d+,\d+,\d+\}',  # RGB颜色
+            r'\w*scope\w*',  # 各种scope相关
+        ]
+        
+        for pattern in pgf_cleanup_patterns:
+            text = re.sub(pattern, ' ', text, flags=re.IGNORECASE)
         
         # 移除特殊字符
         text = re.sub(r'[^\w\s\.\,\!\?\;\:\-\(\)]', ' ', text)

@@ -1,0 +1,40 @@
+{
+  "total_words": 5,
+  "total_frequency": 24,
+  "top_words": [
+    {
+      "word": "quantum",
+      "frequency": 6
+    },
+    {
+      "word": "spin",
+      "frequency": 6
+    },
+    {
+      "word": "liquid",
+      "frequency": 6
+    },
+    {
+      "word": "electron-phonon",
+      "frequency": 3
+    },
+    {
+      "word": "coupling",
+      "frequency": 3
+    }
+  ],
+  "scientific_terms": [
+    {
+      "word": "quantum",
+      "frequency": 6
+    },
+    {
+      "word": "spin",
+      "frequency": 6
+    },
+    {
+      "word": "liquid",
+      "frequency": 6
+    }
+  ]
+}

@@ -22,7 +22,7 @@ def create_corrected_mask_wordcloud():
     print("🎭 开始创建修正版遮罩词云...")
     
     # 1. 加载和处理遮罩图片
-    mask_path = "mask/mask.jpg"
+    mask_path = "mask/mask2.jpg"
     if not os.path.exists(mask_path):
         print(f"❌ 找不到遮罩文件: {mask_path}")
         return
@@ -54,7 +54,7 @@ def create_corrected_mask_wordcloud():
     # 2. 加载合并的词频数据
     import json
     
-    freq_file = "output_batch/combined_all_papers_frequencies.json"
+    freq_file = "output/combined_all_papers_frequencies.json"
     if not os.path.exists(freq_file):
         print(f"❌ 找不到词频文件: {freq_file}")
         return
@@ -64,8 +64,8 @@ def create_corrected_mask_wordcloud():
     with open(freq_file, 'r', encoding='utf-8') as f:
         freq_data = json.load(f)
     
-    # 获取更多词汇（300个）
-    top_words = freq_data.get('top_words', [])[:400]
+    # 获取更多词汇（扩展到1000个）
+    top_words = freq_data.get('top_words', [])[:1000]
     word_frequencies = {item['word']: item['frequency'] for item in top_words}
     
     # 手动添加最高权重的主题词
@@ -88,22 +88,87 @@ def create_corrected_mask_wordcloud():
     print(f"   总词汇数: {len(enhanced_frequencies)}")
     print(f"   最高频词汇: STRONGLY CORRELATED SYSTEMS ({theme_words['STRONGLY CORRELATED SYSTEMS']:.0f})")
     
-    # 转换为全大写
+    # 定义停用词列表（无意义的常见词汇）
+    stopwords = {
+        # 英语常见停用词
+        'THE', 'AND', 'OR', 'BUT', 'IN', 'ON', 'AT', 'TO', 'FOR', 'OF', 'WITH', 'BY', 'FROM',
+        'UP', 'ABOUT', 'INTO', 'THROUGH', 'DURING', 'BEFORE', 'AFTER', 'ABOVE', 'BELOW',
+        'BETWEEN', 'AMONG', 'WITHIN', 'WITHOUT', 'UNDER', 'OVER', 'AROUND', 'NEAR', 'FAR',
+        'A', 'AN', 'AS', 'ARE', 'WAS', 'WERE', 'BEEN', 'BE', 'HAVE', 'HAS', 'HAD', 'DO',
+        'DOES', 'DID', 'WILL', 'WOULD', 'COULD', 'SHOULD', 'MAY', 'MIGHT', 'MUST', 'CAN',
+        'IS', 'IT', 'ITS', 'THIS', 'THAT', 'THESE', 'THOSE', 'THEY', 'THEM', 'THEIR',
+        'WE', 'US', 'OUR', 'YOU', 'YOUR', 'HE', 'HIM', 'HIS', 'SHE', 'HER', 'I', 'ME', 'MY',
+        'ALL', 'ANY', 'BOTH', 'EACH', 'FEW', 'MORE', 'MOST', 'OTHER', 'SOME', 'SUCH',
+        'NO', 'NOR', 'NOT', 'ONLY', 'OWN', 'SAME', 'SO', 'THAN', 'TOO', 'VERY',
+        'JUST', 'NOW', 'THEN', 'WHERE', 'WHEN', 'WHO', 'WHAT', 'WHY', 'HOW',
+        
+        # 学术论文常见但无意义的词汇
+        'PAPER', 'STUDY', 'RESEARCH', 'ANALYSIS', 'METHOD', 'APPROACH', 'TECHNIQUE',
+        'RESULT', 'RESULTS', 'CONCLUSION', 'CONCLUSIONS', 'DISCUSSION', 'INTRODUCTION',
+        'ABSTRACT', 'FIGURE', 'TABLE', 'EQUATION', 'SECTION', 'CHAPTER', 'APPENDIX',
+        'REFERENCE', 'REFERENCES', 'BIBLIOGRAPHY', 'ACKNOWLEDGE', 'ACKNOWLEDGMENTS',
+        'BASED', 'USING', 'USED', 'SHOW', 'SHOWS', 'SHOWN', 'FIND', 'FOUND', 'PRESENT',
+        'PRESENTED', 'DESCRIBE', 'DESCRIBED', 'PROPOSE', 'PROPOSED', 'INVESTIGATE',
+        'INVESTIGATED', 'CONSIDER', 'CONSIDERED', 'DISCUSS', 'DISCUSSED', 'REPORT',
+        'REPORTED', 'OBTAIN', 'OBTAINED', 'GIVE', 'GIVEN', 'PROVIDE', 'PROVIDED',
+        'DEMONSTRATE', 'DEMONSTRATED', 'ILLUSTRATE', 'ILLUSTRATED', 'EXAMINE', 'EXAMINED',
+        
+        # 其他可能的无意义词汇
+        'ALSO', 'HOWEVER', 'THEREFORE', 'FURTHERMORE', 'MOREOVER', 'NEVERTHELESS',
+        'THUS', 'HENCE', 'CONSEQUENTLY', 'ACCORDINGLY', 'INDEED', 'ACTUALLY', 'PARTICULARLY',
+        'ESPECIALLY', 'SPECIFICALLY', 'GENERALLY', 'TYPICALLY', 'USUALLY', 'OFTEN',
+        'SOMETIMES', 'ALWAYS', 'NEVER', 'HARDLY', 'BARELY', 'NEARLY', 'ALMOST', 'QUITE',
+        'RATHER', 'FAIRLY', 'RELATIVELY', 'SIGNIFICANTLY', 'CONSIDERABLY', 'SUBSTANTIALLY',
+
+        # 自定义：只保留确定的技术噪音
+        'FIG', 'EQUATION', 'REF', 'CITE',  # 文档标记  
+        'LEFT', 'RIGHT', 'TOP', 'BOTTOM',  # 位置描述 
+    }
+    
+    print(f"🚫 停用词过滤: {len(stopwords)} 个停用词")
+    
+    # 转换为全大写并过滤停用词
     uppercase_frequencies = {}
+    filtered_count = 0
+    theme_words_upper = {word.upper() for word in theme_words.keys()}  # 主题词不被过滤
+    
     for word, freq in enhanced_frequencies.items():
         uppercase_word = word.upper()
-        # 如果大写后有重复，选择频率更高的
-        if uppercase_word in uppercase_frequencies:
-            uppercase_frequencies[uppercase_word] = max(uppercase_frequencies[uppercase_word], freq)
+        
+        # 主题词永远不过滤，或者不在停用词列表中的词汇才保留
+        if uppercase_word in theme_words_upper or uppercase_word not in stopwords:
+            # 如果大写后有重复，选择频率更高的
+            if uppercase_word in uppercase_frequencies:
+                uppercase_frequencies[uppercase_word] = max(uppercase_frequencies[uppercase_word], freq)
+            else:
+                uppercase_frequencies[uppercase_word] = freq
         else:
-            uppercase_frequencies[uppercase_word] = freq
+            filtered_count += 1
     
     print(f"   转换为大写后词汇数: {len(uppercase_frequencies)}")
+    print(f"   过滤掉的停用词: {filtered_count} 个")
+    print(f"   过滤率: {(filtered_count/len(enhanced_frequencies))*100:.1f}%")
+    
+    # 保存过滤后的词汇表到txt文件供检查
+    filtered_words_path = os.path.join("output", "filtered_wordlist.txt")
+    with open(filtered_words_path, 'w', encoding='utf-8') as f:
+        # 按频率降序排列
+        sorted_words = sorted(uppercase_frequencies.items(), key=lambda x: x[1], reverse=True)
+        f.write(f"# 过滤后的词汇表 (共 {len(sorted_words)} 个词汇)\n")
+        f.write(f"# 过滤掉 {filtered_count} 个停用词，过滤率 {(filtered_count/len(enhanced_frequencies))*100:.1f}%\n")
+        f.write("# 格式: 词汇 | 频率\n\n")
+        
+        for word, freq in sorted_words:
+            f.write(f"{word} | {freq:.3f}\n")
+    
+    print(f"📝 过滤后词汇表已保存: {filtered_words_path}")
     
     # 3. 设置字体路径
     # font_path = r"fonts/Harding.ttf"  # 确保路径正确
     # font_path = r"/mnt/c/Users/余荫铠/AppData/Local/Microsoft/Windows/Fonts/Harding Text Web Bold Regular.ttf"
     font_path = r"/mnt/c/Users/余荫铠/AppData/Local/Microsoft/Windows/Fonts/Harding Text Web Regular Regular.ttf"
+    # font_path = r"/mnt/c/Windows/Fonts/times.ttf"
+    # font_path = r"/mnt/c/Windows/Fonts/segoeui.ttf"
     
     # 检查字体文件是否存在
     if os.path.exists(font_path):
@@ -121,14 +186,14 @@ def create_corrected_mask_wordcloud():
     # 4. 创建词云
     print(f"🎨 生成遮罩词云...")
     
-    # 创建WordCloud对象，尺寸与原图一致
+    # 创建WordCloud对象
     wordcloud = WordCloud(
-        width=original_size[0]*3,    # 与mask图片宽度一致
-        height=original_size[1]*3,   # 与mask图片高度一致
+        width=original_size[0]*4,    # 
+        height=original_size[1]*4,   # 
         background_color='black',  # 黑色背景
-        max_words=400,
-        relative_scaling=0.5,
-        min_font_size=12,
+        max_words=800,
+        relative_scaling=0.3,
+        min_font_size=8,
         max_font_size=300,
         prefer_horizontal=0.7,
         mask=processed_mask,
@@ -146,13 +211,13 @@ def create_corrected_mask_wordcloud():
     print(f"   词云生成完成，包含 {len(wordcloud.words_)} 个词汇")
     
     # 5. 保存高分辨率词云（无标题）
-    output_dir = "output_batch"
+    output_dir = "output"
     
-    # 创建图形，尺寸与原图完全一致
-    fig_width = original_size[0] / 600  # 600 DPI
-    fig_height = original_size[1] / 600  # 600 DPI
+    # 创建图形
+    fig_width = original_size[0] / 800  # 800 DPI
+    fig_height = original_size[1] / 800  # 800 DPI
     
-    fig, ax = plt.subplots(figsize=(fig_width, fig_height), dpi=600)
+    fig, ax = plt.subplots(figsize=(fig_width, fig_height), dpi=800)
     
     # 显示词云，无边距
     ax.imshow(wordcloud, interpolation='bilinear')
@@ -168,7 +233,7 @@ def create_corrected_mask_wordcloud():
     # 保存超高分辨率图片
     output_path = os.path.join(output_dir, "yyk_silhouette.png")
     
-    plt.savefig(output_path, dpi=600, bbox_inches='tight', pad_inches=0,
+    plt.savefig(output_path, dpi=800, bbox_inches='tight', pad_inches=0,
                facecolor='black', edgecolor='none')
     plt.close()
     
@@ -177,7 +242,7 @@ def create_corrected_mask_wordcloud():
     # # 6. 创建对比图
     # print(f"🖼️  创建对比展示图...")
     
-    # fig, axes = plt.subplots(1, 2, figsize=(20, 10), dpi=600)
+    # fig, axes = plt.subplots(1, 2, figsize=(20, 10), dpi=800)
     # fig.patch.set_facecolor('black')
     
     # # 左侧：原始遮罩
@@ -196,7 +261,7 @@ def create_corrected_mask_wordcloud():
     
     # # 保存对比图
     # comparison_path = os.path.join(output_dir, "yyk_comparison.png")
-    # plt.savefig(comparison_path, dpi=600, bbox_inches='tight',
+    # plt.savefig(comparison_path, dpi=800, bbox_inches='tight',
     #            facecolor='black', edgecolor='none')
     # plt.close()
     
@@ -232,7 +297,7 @@ def create_corrected_mask_wordcloud():
             "silhouette_area_coverage": f"{((total_pixels-total_mask_pixels)/total_pixels)*100:.1f}%"
         },
         "wordcloud_stats": {
-            "resolution": "600 DPI",
+            "resolution": "800 DPI",
             "total_input_words": len(uppercase_frequencies),
             "placed_words": placed_words,
             "placement_rate": f"{(placed_words/len(uppercase_frequencies))*100:.1f}%",
@@ -259,8 +324,8 @@ def create_corrected_mask_wordcloud():
     # 8. 输出最终总结
     print(f"\n🎉 修正版遮罩词云生成完成！")
     print(f"📊 处理统计:")
-    print(f"   - 图片尺寸: {original_size[0]}x{original_size[1]} (与原图一致)")
-    print(f"   - 分辨率: 600 DPI")
+    print(f"   - 图片尺寸: {original_size[0]}x{original_size[1]}")
+    print(f"   - 分辨率: 800 DPI")
     print(f"   - 黑色区域占比: {(total_mask_pixels/total_pixels)*100:.1f}% (词汇放置区域)")
     print(f"   - 人物剪影占比: {((total_pixels-total_mask_pixels)/total_pixels)*100:.1f}% (保持空白)")
     print(f"   - 放置词汇: {placed_words}/{len(uppercase_frequencies)} ({(placed_words/len(uppercase_frequencies))*100:.1f}%)")
