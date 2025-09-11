@@ -3,7 +3,9 @@
 一个简单、快速的工具，用于从ArXiv科学论文生成美观的遮罩词云图。
 
 <p align="center">
-  <img src="examples/demo_wordcloud.png" alt="示例词云" width="600"/>
+  <img src="examples/gallery.jpg" alt="实体词云艺术作品" width="600"/>
+  <br>
+  <em>词云变身桌面艺术摆件 - 从代码到现实！</em>
 </p>
 
 ## 特性

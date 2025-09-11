@@ -3,7 +3,9 @@
 A simple, fast tool to generate beautiful masked word clouds from scientific papers on ArXiv.
 
 <p align="center">
-  <img src="examples/demo_wordcloud.png" alt="Example WordCloud" width="600"/>
+  <img src="examples/gallery.jpg" alt="Physical WordCloud Art Piece" width="600"/>
+  <br>
+  <em>WordCloud turned into a framed desktop art piece - from code to reality!</em>
 </p>
 
 ## Features
