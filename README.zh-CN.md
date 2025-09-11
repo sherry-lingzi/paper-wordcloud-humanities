@@ -241,8 +241,8 @@ MIT许可证 - 可自由用于学术或商业项目。
 ```bibtex
 @software{paper_wordcloud,
   title={Paper WordCloud Generator},
-  author={Yinkai Yu},
-  year={2024},
+  author={Yin-Kai Yu},
+  year={2025},
   url={https://github.com/YinkaiYu/paper-wordcloud}
 }
 ```

@@ -234,8 +234,8 @@ If you use this tool in academic work, please cite:
 ```bibtex
 @software{paper_wordcloud,
   title={Paper WordCloud Generator},
-  author={Yinkai Yu},
-  year={2024},
+  author={Yin-Kai Yu},
+  year={2025},
   url={https://github.com/YinkaiYu/paper-wordcloud}
 }
 ```
