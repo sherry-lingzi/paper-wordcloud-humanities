@@ -21,7 +21,7 @@
 ### 安装
 
 ```bash
-git clone https://github.com/yourusername/paper-wordcloud.git
+git clone https://github.com/YinkaiYu/paper-wordcloud.git
 cd paper-wordcloud
 pip install -r requirements.txt
 ```
@@ -31,49 +31,49 @@ pip install -r requirements.txt
 #### 从ArXiv论文ID生成
 ```bash
 # 创建包含ArXiv ID的文本文件（每行一个ID）
-echo -e "2211.02002\n2302.10115\n2409.18050" > 我的论文.txt
+echo -e "2211.02002\n2302.10115\n2409.18050" > my_papers.txt
 
 # 生成词云
-python arxiv_wordcloud.py --ids 我的论文.txt --mask examples/mask.jpg --output 词云图.png
+python arxiv_wordcloud.py --ids my_papers.txt --mask examples/mask.jpg --output my_wordcloud.png
 ```
 
 #### 从本地PDF生成
 ```bash
 # 如果你有PDF文件目录
-python arxiv_wordcloud.py --pdfs ./论文目录/ --mask examples/mask.jpg --output 词云图.png
+python arxiv_wordcloud.py --pdfs ./pdf_directory/ --mask examples/mask.jpg --output my_wordcloud.png
 ```
 
 #### 使用自定义字体
 ```bash
-python arxiv_wordcloud.py --ids 我的论文.txt --mask examples/mask.jpg --output 结果.png --font fonts/HardingTextRegular.ttf
+python arxiv_wordcloud.py --ids my_papers.txt --mask examples/mask.jpg --output result.png --font fonts/HardingTextRegular.ttf
 ```
 
 #### 使用主题词（突出重点术语）
 ```bash
 # 创建主题词文件，包含你想突出显示的关键术语
-echo -e "量子蒙特卡罗\n超导电性\n狄拉克费米子" > 主题词.txt
+echo -e "QUANTUM MONTE CARLO\nSUPERCONDUCTIVITY\nDIRAC FERMIONS" > my_themes.txt
 
 # 生成带有突出主题词的词云
-python arxiv_wordcloud.py --ids 我的论文.txt --mask examples/mask.jpg --output 结果.png --theme-words 主题词.txt
+python arxiv_wordcloud.py --ids my_papers.txt --mask examples/mask.jpg --output result.png --theme-words my_themes.txt
 ```
 
 ### Python API
 
 ```python
-from arxiv_wordcloud import create_wordcloud_from_arxiv
+import arxiv_wordcloud
 
 # 简单调用
-create_wordcloud_from_arxiv(
+success = arxiv_wordcloud.create_wordcloud_from_arxiv(
     arxiv_ids=['2211.02002', '2302.10115', '2409.18050'],
     mask_image='examples/mask.jpg',
-    output_file='我的词云.png'
+    output_file='my_wordcloud.png'
 )
 
 # 使用主题词强调
-create_wordcloud_from_arxiv(
+success = arxiv_wordcloud.create_wordcloud_from_arxiv(
     arxiv_ids=['2211.02002', '2302.10115', '2409.18050'],
     mask_image='examples/mask.jpg',
-    output_file='我的词云.png',
+    output_file='my_wordcloud.png',
     theme_words_file='examples/theme_words.txt',
     font_path='fonts/HardingTextRegular.ttf'
 )
@@ -241,9 +241,9 @@ MIT许可证 - 可自由用于学术或商业项目。
 ```bibtex
 @software{paper_wordcloud,
   title={Paper WordCloud Generator},
-  author={Your Name},
+  author={Yinkai Yu},
   year={2024},
-  url={https://github.com/yourusername/paper-wordcloud}
+  url={https://github.com/YinkaiYu/paper-wordcloud}
 }
 ```
 

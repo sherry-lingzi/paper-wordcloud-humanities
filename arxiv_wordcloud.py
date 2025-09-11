@@ -276,25 +276,9 @@ def create_masked_wordcloud(word_freq: Dict[str, int],
         return False
 
 
-def process_arxiv_ids(arxiv_ids: List[str], 
-                     mask_path: str, 
-                     output_path: str,
-                     font_path: str = None,
-                     theme_words_file: str = None) -> bool:
-    """Process ArXiv papers and generate wordcloud
-    
-    Args:
-        arxiv_ids: List of ArXiv paper IDs
-        mask_path: Path to mask image
-        output_path: Path for output wordcloud
-        font_path: Optional font path
-        
-    Returns:
-        True if successful
-    """
+def _get_texts_from_arxiv_ids(arxiv_ids: List[str]) -> List[str]:
+    """Download and extract text from ArXiv papers"""
     print(f"🚀 Processing {len(arxiv_ids)} ArXiv papers...")
-    
-    # Download PDFs
     texts = []
     for arxiv_id in arxiv_ids:
         pdf_path = download_arxiv_pdf(arxiv_id)
@@ -305,49 +289,16 @@ def process_arxiv_ids(arxiv_ids: List[str],
                 print(f"✓ Extracted text from {arxiv_id} ({len(text)//1000}k chars)")
             else:
                 print(f"⚠️  No text extracted from {arxiv_id}")
-    
-    if not texts:
-        print("❌ No texts extracted from any papers!")
-        return False
-    
-    # Get word frequencies
-    print(f"📊 Calculating word frequencies...")
-    word_freq = get_word_frequencies(texts, theme_words_file=theme_words_file)
-    print(f"   Found {len(word_freq)} unique words")
-    
-    # Show top words
-    top_words = sorted(word_freq.items(), key=lambda x: x[1], reverse=True)[:10]
-    print("   Top words:", [f"{w}({f})" for w, f in top_words])
-    
-    # Generate wordcloud
-    return create_masked_wordcloud(word_freq, mask_path, output_path, font_path)
+    return texts
 
-
-def process_pdf_directory(pdf_dir: str, 
-                         mask_path: str, 
-                         output_path: str,
-                         font_path: str = None,
-                         theme_words_file: str = None) -> bool:
-    """Process PDF directory and generate wordcloud
-    
-    Args:
-        pdf_dir: Directory containing PDF files
-        mask_path: Path to mask image
-        output_path: Path for output wordcloud
-        font_path: Optional font path
-        
-    Returns:
-        True if successful
-    """
-    # Find all PDF files
+def _get_texts_from_pdf_directory(pdf_dir: str) -> List[str]:
+    """Extract text from PDF directory"""
     pdf_files = list(Path(pdf_dir).glob("*.pdf"))
     if not pdf_files:
         print(f"❌ No PDF files found in {pdf_dir}")
-        return False
+        return []
     
     print(f"🚀 Processing {len(pdf_files)} PDF files...")
-    
-    # Extract text from all PDFs
     texts = []
     for pdf_file in pdf_files:
         text = extract_text_from_pdf(str(pdf_file))
@@ -356,9 +307,17 @@ def process_pdf_directory(pdf_dir: str,
             print(f"✓ Extracted text from {pdf_file.name} ({len(text)//1000}k chars)")
         else:
             print(f"⚠️  No text extracted from {pdf_file.name}")
-    
+    return texts
+
+def create_wordcloud(texts: List[str],
+                    mask_path: str,
+                    output_path: str,
+                    font_path: str = None,
+                    theme_words_file: str = None,
+                    max_words: int = 500) -> bool:
+    """Create wordcloud from texts - unified processing function"""
     if not texts:
-        print("❌ No texts extracted from any PDFs!")
+        print("❌ No texts provided!")
         return False
     
     # Get word frequencies
@@ -371,7 +330,29 @@ def process_pdf_directory(pdf_dir: str,
     print("   Top words:", [f"{w}({f})" for w, f in top_words])
     
     # Generate wordcloud
-    return create_masked_wordcloud(word_freq, mask_path, output_path, font_path)
+    return create_masked_wordcloud(word_freq, mask_path, output_path, font_path, max_words)
+
+# Legacy wrapper functions for backward compatibility
+def process_arxiv_ids(arxiv_ids: List[str], 
+                     mask_path: str, 
+                     output_path: str,
+                     font_path: str = None,
+                     theme_words_file: str = None,
+                     max_words: int = 500) -> bool:
+    """Process ArXiv papers and generate wordcloud"""
+    texts = _get_texts_from_arxiv_ids(arxiv_ids)
+    return create_wordcloud(texts, mask_path, output_path, font_path, theme_words_file, max_words)
+
+
+def process_pdf_directory(pdf_dir: str, 
+                         mask_path: str, 
+                         output_path: str,
+                         font_path: str = None,
+                         theme_words_file: str = None,
+                         max_words: int = 500) -> bool:
+    """Process PDF directory and generate wordcloud"""
+    texts = _get_texts_from_pdf_directory(pdf_dir)
+    return create_wordcloud(texts, mask_path, output_path, font_path, theme_words_file, max_words)
 
 
 def main():
@@ -428,11 +409,11 @@ Examples:
         # Read ArXiv IDs from file
         with open(args.ids, 'r') as f:
             arxiv_ids = [line.strip() for line in f if line.strip()]
-        success = process_arxiv_ids(arxiv_ids, args.mask, args.output, args.font, args.theme_words)
+        success = process_arxiv_ids(arxiv_ids, args.mask, args.output, args.font, args.theme_words, args.max_words)
         
     elif args.pdfs:
         # Process PDF directory
-        success = process_pdf_directory(args.pdfs, args.mask, args.output, args.font, args.theme_words)
+        success = process_pdf_directory(args.pdfs, args.mask, args.output, args.font, args.theme_words, args.max_words)
     
     return 0 if success else 1
 
@@ -444,19 +425,9 @@ def create_wordcloud_from_arxiv(arxiv_ids: List[str],
                                font_path: str = None,
                                theme_words_file: str = None,
                                max_words: int = 500) -> bool:
-    """Simple API function to create wordcloud from ArXiv papers
-    
-    Args:
-        arxiv_ids: List of ArXiv paper IDs
-        mask_image: Path to mask image
-        output_file: Path for output image
-        font_path: Optional custom font
-        max_words: Maximum words in wordcloud
-        
-    Returns:
-        True if successful
-    """
-    return process_arxiv_ids(arxiv_ids, mask_image, output_file, font_path, theme_words_file)
+    """Simple API function to create wordcloud from ArXiv papers"""
+    texts = _get_texts_from_arxiv_ids(arxiv_ids)
+    return create_wordcloud(texts, mask_image, output_file, font_path, theme_words_file, max_words)
 
 
 def create_wordcloud_from_pdfs(pdf_directory: str,
@@ -465,19 +436,19 @@ def create_wordcloud_from_pdfs(pdf_directory: str,
                               font_path: str = None,
                               theme_words_file: str = None,
                               max_words: int = 500) -> bool:
-    """Simple API function to create wordcloud from PDF directory
-    
-    Args:
-        pdf_directory: Directory containing PDFs
-        mask_image: Path to mask image
-        output_file: Path for output image
-        font_path: Optional custom font
-        max_words: Maximum words in wordcloud
-        
-    Returns:
-        True if successful
-    """
-    return process_pdf_directory(pdf_directory, mask_image, output_file, font_path, theme_words_file)
+    """Simple API function to create wordcloud from PDF directory"""
+    texts = _get_texts_from_pdf_directory(pdf_directory)
+    return create_wordcloud(texts, mask_image, output_file, font_path, theme_words_file, max_words)
+
+
+def create_wordcloud_from_texts(texts: List[str],
+                               mask_image: str,
+                               output_file: str,
+                               font_path: str = None,
+                               theme_words_file: str = None,
+                               max_words: int = 500) -> bool:
+    """Simple API function to create wordcloud from text list"""
+    return create_wordcloud(texts, mask_image, output_file, font_path, theme_words_file, max_words)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
-# ArXiv WordCloud Generator
+# Paper WordCloud Generator
 
-A simple, fast tool to generate beautiful masked word clouds from scientific papers on ArXiv.
+A simple, fast tool to generate beautiful masked word clouds from scientific papers.
 
 <p align="center">
   <img src="examples/gallery.jpg" alt="Physical WordCloud Art Piece" width="600"/>
@@ -21,8 +21,8 @@ A simple, fast tool to generate beautiful masked word clouds from scientific pap
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/arxiv-wordcloud.git
-cd arxiv-wordcloud
+git clone https://github.com/YinkaiYu/paper-wordcloud.git
+cd paper-wordcloud
 pip install -r requirements.txt
 ```
 
@@ -60,17 +60,17 @@ python arxiv_wordcloud.py --ids my_papers.txt --mask examples/mask.jpg --output 
 ### Python API
 
 ```python
-from arxiv_wordcloud import create_wordcloud_from_arxiv
+import arxiv_wordcloud
 
 # Simple function call
-create_wordcloud_from_arxiv(
+success = arxiv_wordcloud.create_wordcloud_from_arxiv(
     arxiv_ids=['2211.02002', '2302.10115', '2409.18050'],
     mask_image='examples/mask.jpg',
     output_file='my_wordcloud.png'
 )
 
 # With theme words for emphasis
-create_wordcloud_from_arxiv(
+success = arxiv_wordcloud.create_wordcloud_from_arxiv(
     arxiv_ids=['2211.02002', '2302.10115', '2409.18050'],
     mask_image='examples/mask.jpg',
     output_file='my_wordcloud.png',
@@ -106,7 +106,7 @@ Optional:
 ## File Structure
 
 ```
-arxiv-wordcloud/
+paper-wordcloud/
 ├── arxiv_wordcloud.py      # Main program (single file!)
 ├── requirements.txt        # Python dependencies
 ├── fonts/
@@ -114,6 +114,7 @@ arxiv-wordcloud/
 └── examples/
     ├── arxiv_ids.txt       # Example paper IDs
     ├── mask.jpg            # Example mask image
+    ├── theme_words.txt     # Example theme words
     └── demo.py             # Demo script
 ```
 
@@ -231,11 +232,11 @@ MIT License - feel free to use for academic or commercial projects.
 If you use this tool in academic work, please cite:
 
 ```bibtex
-@software{arxiv_wordcloud,
-  title={ArXiv WordCloud Generator},
-  author={Your Name},
+@software{paper_wordcloud,
+  title={Paper WordCloud Generator},
+  author={Yinkai Yu},
   year={2024},
-  url={https://github.com/yourusername/arxiv-wordcloud}
+  url={https://github.com/YinkaiYu/paper-wordcloud}
 }
 ```
 
