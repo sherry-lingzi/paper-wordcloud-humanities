@@ -21,6 +21,55 @@ from humanities_text import PaperDocument, extract_pdf_document, extract_text_fr
 from tokenizer_zh import FrequencyResult, analyse_documents, read_word_list
 
 
+def positive_float(value: str) -> float:
+    """Argparse type for a strictly positive floating-point option."""
+    try:
+        parsed = float(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be a number") from exc
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("must be greater than 0")
+    return parsed
+
+
+def nonnegative_float(value: str) -> float:
+    """Argparse type for a non-negative floating-point option."""
+    try:
+        parsed = float(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be a number") from exc
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("must be at least 0")
+    return parsed
+
+
+def at_least_one_float(value: str) -> float:
+    """Argparse type for a theme boost that does not down-weight terms."""
+    parsed = positive_float(value)
+    if parsed < 1.0:
+        raise argparse.ArgumentTypeError("must be at least 1.0")
+    return parsed
+
+
+def probability_float(value: str) -> float:
+    """Argparse type for a 0.0–1.0 layout ratio."""
+    parsed = nonnegative_float(value)
+    if parsed > 1.0:
+        raise argparse.ArgumentTypeError("must be between 0.0 and 1.0")
+    return parsed
+
+
+def positive_int(value: str) -> int:
+    """Argparse type for a strictly positive integer option."""
+    try:
+        parsed = int(value)
+    except ValueError as exc:
+        raise argparse.ArgumentTypeError("must be an integer") from exc
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("must be greater than 0")
+    return parsed
+
+
 def download_arxiv_pdf(arxiv_id: str, output_dir: str = "papers") -> str | None:
     """Download one ArXiv PDF without stopping the complete batch on failure."""
     os.makedirs(output_dir, exist_ok=True)
@@ -192,11 +241,12 @@ def export_frequencies(result: FrequencyResult, path: str) -> None:
 def analyse_papers(documents: Sequence[PaperDocument], *, terms_file: str | None = None,
                    theme_words_file: str | None = None, stopwords_file: str | None = None,
                    abstract_weight: float = 1.5, keyword_weight: float = 3.0,
-                   theme_boost: float = 1.2, inject_theme_words: bool = False) -> FrequencyResult:
+                   theme_boost: float = 1.2, inject_theme_words: bool = False,
+                   scoring_mode: str = "raw") -> FrequencyResult:
     """Load user lists and compute raw, weighted and document-frequency statistics."""
     return analyse_documents(documents, terms=read_word_list(terms_file), theme_words=read_word_list(theme_words_file),
         extra_stopwords=read_word_list(stopwords_file), abstract_weight=abstract_weight, keyword_weight=keyword_weight,
-        theme_boost=theme_boost, inject_theme_words=inject_theme_words)
+        theme_boost=theme_boost, inject_theme_words=inject_theme_words, scoring_mode=scoring_mode)
 
 
 def create_wordcloud(texts: Sequence[str], mask_path: str, output_path: str, font_path: str | None = None,
@@ -237,12 +287,14 @@ def main() -> int:
     parser.add_argument("--export-frequencies", help="UTF-8-SIG CSV audit output")
     parser.add_argument("--recursive", action="store_true", help="Search PDFs recursively")
     parser.add_argument("--keep-references", action="store_true", help="Keep reference sections")
-    parser.add_argument("--abstract-weight", type=float, default=1.5)
-    parser.add_argument("--keyword-weight", type=float, default=3.0)
-    parser.add_argument("--theme-boost", type=float, default=1.2)
+    parser.add_argument("--abstract-weight", type=positive_float, default=1.5)
+    parser.add_argument("--keyword-weight", type=nonnegative_float, default=3.0)
+    parser.add_argument("--theme-boost", type=at_least_one_float, default=1.2)
     parser.add_argument("--inject-theme-words", action="store_true", help="Inject themes absent from corpus")
-    parser.add_argument("--prefer-horizontal", type=float, default=None)
-    parser.add_argument("--max-words", type=int, default=500)
+    parser.add_argument("--prefer-horizontal", type=probability_float, default=None)
+    parser.add_argument("--max-words", type=positive_int, default=500)
+    parser.add_argument("--scoring-mode", choices=("raw", "balanced"), default="raw",
+                        help="raw corpus frequency or balanced equal-per-paper scoring")
     parser.add_argument("--dry-run", action="store_true", help="Score/export without rendering a word cloud")
     args = parser.parse_args()
     if args.ids and not Path(args.ids).is_file(): parser.error(f"ArXiv IDs file not found: {args.ids}")
@@ -262,7 +314,10 @@ def main() -> int:
         return 1
     result = analyse_papers(documents, terms_file=args.terms, theme_words_file=args.theme_words,
         stopwords_file=args.stopwords, abstract_weight=args.abstract_weight, keyword_weight=args.keyword_weight,
-        theme_boost=args.theme_boost, inject_theme_words=args.inject_theme_words)
+        theme_boost=args.theme_boost, inject_theme_words=args.inject_theme_words, scoring_mode=args.scoring_mode)
+    print(f"Processed PDFs: {len(documents)}")
+    print(f"Scoring mode: {result.scoring_mode}")
+    print(f"Unique words: {len(result.scores)}")
     _print_top_words(result)
     if args.export_frequencies: export_frequencies(result, args.export_frequencies)
     if args.dry_run:
@@ -274,9 +329,6 @@ def main() -> int:
         print(f"Error: {exc}")
         return 1
     horizontal = args.prefer_horizontal if args.prefer_horizontal is not None else (1.0 if _contains_chinese(result.scores) else 0.7)
-    if not 0 <= horizontal <= 1:
-        print("Error: --prefer-horizontal must be between 0 and 1.")
-        return 1
     return 0 if create_masked_wordcloud(result.scores, args.mask, args.output, font, args.max_words,
                                          prefer_horizontal=horizontal) else 1
 

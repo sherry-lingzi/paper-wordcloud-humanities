@@ -26,6 +26,7 @@ First inspect the corpus and adjust lists without creating an image:
 
 ```bash
 python arxiv_wordcloud.py --pdfs ./papers --recursive --dry-run \
+  --scoring-mode balanced \
   --terms ./terms.txt --theme-words ./theme_words.txt \
   --stopwords ./custom_stopwords.txt \
   --export-frequencies ./output/frequencies.csv
@@ -44,6 +45,10 @@ python arxiv_wordcloud.py --pdfs ./papers --recursive \
 
 `--terms` and `--theme-words` are intentionally different. Terms only protect a phrase from being split by jieba. Theme words also receive a small, bounded boost **only when they occur in the corpus**. Use `--inject-theme-words` to explicitly override that rule.
 
+### Scoring modes
+
+`raw` (the default) aggregates the real token count of the whole collection, so it is most useful when papers have similar lengths or when the corpus itself is the object of study. `balanced` first divides each paper's weighted token scores by that paper's total weighted score, then aggregates them. Each paper therefore contributes roughly one vote, while abstract and author-keyword bonuses still work inside that paper. For a long-term Scholar Portrait with very unequal paper lengths, review `--scoring-mode balanced` alongside `raw` before rendering.
+
 The CSV is encoded as UTF-8-SIG for Excel and includes final score, raw frequency, document frequency/ratio, and keyword/theme/protected-term flags. Use `--keep-references` to retain references; default local processing trims an independent references heading in the latter half of the text. `--abstract-weight` defaults to 1.5 and `--keyword-weight` to 3.0.
 
 If Chinese tokens are present and no `--font` is supplied, the program looks for common Windows/macOS/Linux CJK fonts. It errors clearly if none is found rather than producing boxes. Chinese output defaults to `--prefer-horizontal 1.0`; English preserves the original 0.7 layout preference.
@@ -60,7 +65,7 @@ The original Python API remains available: `create_wordcloud_from_arxiv`, `creat
 
 ## CLI additions
 
-`--terms`, `--stopwords`, `--export-frequencies`, `--recursive`, `--keep-references`, `--abstract-weight`, `--keyword-weight`, `--theme-boost`, `--inject-theme-words`, `--prefer-horizontal`, and `--dry-run` support the Scholar Portrait workflow.
+`--terms`, `--stopwords`, `--export-frequencies`, `--recursive`, `--keep-references`, `--abstract-weight`, `--keyword-weight`, `--theme-boost`, `--inject-theme-words`, `--prefer-horizontal`, `--scoring-mode {raw,balanced}`, and `--dry-run` support the Scholar Portrait workflow.
 
 ## License and attribution
 

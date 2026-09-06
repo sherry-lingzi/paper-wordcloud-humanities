@@ -19,6 +19,7 @@ custom_stopwords.txt    首次审查后补充的无意义高频词
 
 ```bash
 python arxiv_wordcloud.py --pdfs ./papers --recursive --dry-run \
+  --scoring-mode balanced \
   --terms ./terms.txt --theme-words ./theme_words.txt \
   --stopwords ./custom_stopwords.txt \
   --export-frequencies ./output/frequencies.csv
@@ -36,6 +37,40 @@ python arxiv_wordcloud.py --pdfs ./papers --recursive \
 ```
 
 `terms` **不等于** `theme words`：前者只通过 jieba 保护分词，例如“科学技术哲学”不被拆开；后者既保护分词，又在它真实出现在论文中时进行温和、有限的加权。默认不会把语料中没有出现的 theme word 塞进词云；如确有需要，显式加入 `--inject-theme-words`。
+
+### 两种统计模式
+
+`raw`（默认）按整个论文集的真实总词频统计，适合论文篇幅接近、或希望观察整个语料库语言重心的情况。
+
+`balanced` 先在每篇论文内部按其加权 token 总分归一化，再汇总各篇结果；每篇论文大致相当于一张选票，摘要和关键词权重仍在篇内生效。它适合不同论文篇幅差异较大、论文/书评/专著章节混合，或制作长期学术研究轨迹与 Scholar Portrait。若论文篇幅差异明显，建议先用 `--scoring-mode balanced` 生成审查表，再与 `raw` 结果比较。
+
+Windows CMD 可使用以下命令（`^` 为续行符；PowerShell 可改为单行或使用反引号）：
+
+```cmd
+python arxiv_wordcloud.py ^
+  --pdfs .\papers ^
+  --recursive ^
+  --dry-run ^
+  --scoring-mode balanced ^
+  --terms .\terms.txt ^
+  --theme-words .\theme_words.txt ^
+  --stopwords .\custom_stopwords.txt ^
+  --export-frequencies .\output\frequencies.csv
+```
+
+```cmd
+python arxiv_wordcloud.py ^
+  --pdfs .\papers ^
+  --recursive ^
+  --scoring-mode balanced ^
+  --mask .\mask.png ^
+  --output .\output\portrait.png ^
+  --terms .\terms.txt ^
+  --theme-words .\theme_words.txt ^
+  --stopwords .\custom_stopwords.txt ^
+  --export-frequencies .\output\frequencies.csv ^
+  --font C:\Windows\Fonts\msyh.ttc
+```
 
 CSV 使用 UTF-8-SIG，Windows Excel 可直接打开；包含 `score`、`raw_frequency`、`document_frequency`、`document_ratio`、关键词/主题词/受保护术语标记。摘要默认权重为 1.5，作者关键词默认额外权重为 3.0。默认会从后半部分识别独立的“参考文献 / References / Bibliography”标题并截断，可用 `--keep-references` 保留。
 
@@ -55,7 +90,7 @@ python arxiv_wordcloud.py --ids examples/arxiv_ids.txt \
 
 ## 新增 CLI 参数
 
-`--terms`、`--stopwords`、`--export-frequencies`、`--recursive`、`--keep-references`、`--abstract-weight`、`--keyword-weight`、`--theme-boost`、`--inject-theme-words`、`--prefer-horizontal`、`--dry-run`。
+`--terms`、`--stopwords`、`--export-frequencies`、`--recursive`、`--keep-references`、`--abstract-weight`、`--keyword-weight`、`--theme-boost`、`--inject-theme-words`、`--prefer-horizontal`、`--scoring-mode {raw,balanced}`、`--dry-run`。
 
 ## 安装与许可证
 

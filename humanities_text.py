@@ -19,7 +19,8 @@ _PAGE_NUMBER_RE = re.compile(r"^[—–\-\s]*\d{1,5}[—–\-\s]*$")
 _ABSTRACT_RE = re.compile(
     r"(?ims)^\s*摘要\s*[:：]?\s*(.+?)(?=^\s*(?:关键词|关键字)\s*[:：]?|^\s*$|\Z)"
 )
-_KEYWORD_RE = re.compile(r"(?im)^\s*(?:关键词|关键字)\s*[:：]?\s*(.+?)\s*$")
+_KEYWORD_LABEL_RE = re.compile(r"^\s*(?:关键词|关键字)\s*[:：]?\s*(.*)$", re.IGNORECASE)
+_SECTION_LIKE_RE = re.compile(r"^\s*(?:正文|引言|摘要|ABSTRACT|分类号|中图分类号|[一二三四五六七八九十\d]+[、.．])", re.IGNORECASE)
 
 
 @dataclass
@@ -70,8 +71,16 @@ def clean_pdf_pages(page_texts: Iterable[str]) -> list[str]:
 
 
 def is_reference_heading(line: str) -> bool:
-    """Return true only for an independent, unnumbered references heading."""
-    compact = re.sub(r"[\s:：.。]", "", normalize_text(line)).upper()
+    """Recognise common standalone Chinese and English references headings.
+
+    Brackets and a short chapter label are normalised away, but arbitrary prose
+    is never searched for a heading substring.
+    """
+    compact = normalize_text(line).strip()
+    compact = re.sub(r"^[\[【（(]\s*", "", compact)
+    compact = re.sub(r"\s*[\]】）)]$", "", compact)
+    compact = re.sub(r"^(?:(?:\d+|[一二三四五六七八九十百]+)\s*[.．、:：]?\s*)", "", compact)
+    compact = re.sub(r"[\s:：.。、]+", "", compact).upper()
     return compact in REFERENCE_HEADINGS
 
 
@@ -79,7 +88,7 @@ def remove_references(lines: list[str], keep_references: bool = False) -> list[s
     """Trim an end-matter references section without treating prose as a heading."""
     if keep_references or not lines:
         return lines
-    start = math.floor(len(lines) * 0.45)
+    start = math.floor(len(lines) * 0.40)
     for index in range(start, len(lines)):
         if is_reference_heading(lines[index]):
             return lines[:index]
@@ -96,14 +105,34 @@ def extract_abstract_and_keywords(text: str) -> tuple[str, str, tuple[str, ...]]
         text = text[:abstract_match.start()] + text[abstract_match.end():]
 
     keywords: list[str] = []
-    keyword_match = _KEYWORD_RE.search(text)
-    if keyword_match:
-        raw_keywords = keyword_match.group(1)
-        keywords = [
-            item.strip() for item in re.split(r"[；;,，、]", raw_keywords)
-            if item.strip() and len(item.strip()) <= 80
-        ]
-        text = text[:keyword_match.start()] + text[keyword_match.end():]
+    lines = text.splitlines()
+    for index, line in enumerate(lines):
+        match = _KEYWORD_LABEL_RE.match(line)
+        if not match:
+            continue
+        keyword_lines = [match.group(1).strip()]
+        consumed = [index]
+        # A wrapped keyword line normally follows an explicit separator.  Limit
+        # this to two short lines so body prose cannot be swallowed.
+        previous = keyword_lines[0]
+        for next_index in range(index + 1, min(index + 3, len(lines))):
+            candidate = lines[next_index].strip()
+            if (not previous.rstrip().endswith((";", "；", ",", "，", "、")) or not candidate
+                    or len(candidate) > 80 or _SECTION_LIKE_RE.match(candidate)
+                    or re.search(r"[。！？!?]", candidate)):
+                break
+            keyword_lines.append(candidate)
+            consumed.append(next_index)
+            previous = candidate
+        seen: set[str] = set()
+        for item in re.split(r"[；;,，、]", " ".join(keyword_lines)):
+            cleaned = item.strip(" \t:：;；,，、")
+            if cleaned and len(cleaned) <= 80 and cleaned not in seen:
+                keywords.append(cleaned)
+                seen.add(cleaned)
+        lines = [value for line_index, value in enumerate(lines) if line_index not in consumed]
+        text = "\n".join(lines)
+        break
     return re.sub(r"\n{3,}", "\n\n", text).strip(), abstract, tuple(keywords)
 
 
